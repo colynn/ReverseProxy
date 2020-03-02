@@ -1,24 +1,26 @@
 package main
 
 import (
-	"net/http"
-	"net/url"
-	"net/http/httputil"
+	"context"
 	"log"
 	"net"
-	"time"
-	"context"
-	"github.com/bogdanovich/dns_resolver"
+	"net/http"
+	"net/http/httputil"
+	"net/url"
 	"strings"
+	"time"
+
+	"github.com/bogdanovich/dns_resolver"
 )
 
 type handle struct {
 	reverseProxy string
 }
 
-func (this *handle) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+// ServeHTTP ..
+func (h *handle) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	log.Println(r.RemoteAddr + " " + r.Method + " " + r.URL.String() + " " + r.Proto + " " + r.UserAgent())
-	remote, err := url.Parse(this.reverseProxy)
+	remote, err := url.Parse(h.reverseProxy)
 	if err != nil {
 		log.Fatalln(err)
 	}

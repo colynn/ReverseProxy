@@ -2,10 +2,11 @@ package main
 
 import "flag"
 
+// Cmd ..
 type Cmd struct {
-	bind string
+	bind   string
 	remote string
-	ip string
+	ip     string
 }
 
 func parseCmd() Cmd {
